@@ -1,0 +1,22 @@
+html {
+    /* cursor: none; */
+}
+
+.cursor {
+    left: 0;
+    top: 0;
+    width: 12px;
+    height: 20px;
+    background-image: url('./assets/mouse.png');
+    background-size: contain;
+    position: absolute;
+    border-radius: 5px;
+    pointer-events: none;
+  }
+  
+  .cursor__follower {
+    transition: transform .4s;
+    width: 6px;
+    height: 6px;
+    pointer-events: none;
+  }
