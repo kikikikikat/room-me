@@ -10,6 +10,12 @@ export default class Level {
         this.levelData.start();
     }
 
+    mouseMoved() {
+        if (this.levelData.mouseMoved) {
+            this.levelData.mouseMoved();
+        }
+    }
+
     destroy() {
         this.destroyedStatus = true;
         this.cleanup();
