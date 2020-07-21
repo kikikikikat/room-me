@@ -13,8 +13,9 @@ import levelFlowers from './level-flowers.js';
 import levelMountains from './level-mountains.js';
 import levelQuads from './level-quads.js';
 import levelEmpty from './level-empty.js';
+import levelTest from './level-test.js';
 
-var mouseOverWhichRoomArea= 3, levelData = [ levelQuads ];
+var mouseOverWhichRoomArea= 3, levelData = [ levelTest ];
   
   
 
@@ -32,16 +33,16 @@ new p5(p5 => {
     let room, lightSwitch, drop, drop2, river;
     let isDarkMode = false;
     p5.preload = () => {
-        lightSwitch = p5.createSprite(170, 320);
-        lightSwitch.scale = .4;
-        lightSwitch.addAnimation('day', 'assets/switch/frame_1.png', 'assets/switch/frame_4.png');
-        lightSwitch.addAnimation('dark', 'assets/switch-pressed/frame_1.png', 'assets/switch-pressed/frame_2.png');
+        // lightSwitch = p5.createSprite(170, 320);
+        // lightSwitch.scale = .4;
+        // lightSwitch.addAnimation('day', 'assets/switch/frame_1.png', 'assets/switch/frame_4.png');
+        // lightSwitch.addAnimation('dark', 'assets/switch-pressed/frame_1.png', 'assets/switch-pressed/frame_2.png');
 
-        room = p5.createSprite(640, 360);
-        room.addAnimation('day', 'assets/room/frame_1.png', 'assets/room/frame_4.png');
-        room.addAnimation('dark', 'assets/room-invert/frame_1.png', 'assets/room-invert/frame_4.png');
+        // room = p5.createSprite(640, 360);
+        // room.addAnimation('day', 'assets/room/frame_1.png', 'assets/room/frame_4.png');
+        // room.addAnimation('dark', 'assets/room-invert/frame_1.png', 'assets/room-invert/frame_4.png');
 
-        roomArea = p5.loadImage('assets/room-area.png');
+        // roomArea = p5.loadImage('assets/room-area.png');
 
         // drop = p5.createSprite(400, 300);
         // drop.addAnimation('normal', 'assets/water-drop/frame_00001.png', 'assets/water-drop/frame_00017.png');
@@ -61,22 +62,22 @@ new p5(p5 => {
         levelManager.start();
         window.levelManager = levelManager;
         p5.createCanvas(1280, 720);
-        lightSwitch.setCollider('circle', 0, 0, 64);
-        lightSwitch.onMousePressed = () => {
-            console.log('pressed switch');
-            levelManager.next();
-            isDarkMode = !isDarkMode;
-            isDarkMode ? room.changeAnimation('dark') : room.changeAnimation('day');
-            isDarkMode ? lightSwitch.changeAnimation('dark') : lightSwitch.changeAnimation('day');
-        };
-        lightSwitch.onMouseOver = () => {
-            console.log('mouseover switch');
-            toggleSwitch();
-        }
-        lightSwitch.onMouseOut = () => {
-            console.log('mouse out');
-            toggleSwitch();
-        }
+        // lightSwitch.setCollider('circle', 0, 0, 64);
+        // lightSwitch.onMousePressed = () => {
+        //     console.log('pressed switch');
+        //     levelManager.next();
+        //     isDarkMode = !isDarkMode;
+        //     isDarkMode ? room.changeAnimation('dark') : room.changeAnimation('day');
+        //     isDarkMode ? lightSwitch.changeAnimation('dark') : lightSwitch.changeAnimation('day');
+        // };
+        // lightSwitch.onMouseOver = () => {
+        //     console.log('mouseover switch');
+        //     toggleSwitch();
+        // }
+        // lightSwitch.onMouseOut = () => {
+        //     console.log('mouse out');
+        //     toggleSwitch();
+        // }
     };
 
     p5.mouseMoved = () => {
@@ -85,8 +86,8 @@ new p5(p5 => {
 
     p5.draw = () => {
         p5.background(isDarkMode ? p5.color(0, 0, 0) : p5.color(255));
-        p5.drawSprite(room);
-        p5.drawSprite(lightSwitch);
+        // p5.drawSprite(room);
+        // p5.drawSprite(lightSwitch);
         // p5.drawSprite(drop);
         // p5.tint(255, 120);
         // p5.drawSprite(drop2);
