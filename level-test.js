@@ -41,13 +41,50 @@ export default p5Instance => {
 
     }
 
-    const drawHorizontalArea = (context, leftPoint, rightPoint, h, sep) => {
-        for (let y = 0; y < h; y+=sep) {
-            let p1 = p5Instance.createVector(leftPoint.x, leftPoint.y + y);
-            let p2 = p5Instance.createVector(rightPoint.x, rightPoint.y + y);
-            uts.handDraw(context, p1, p2);
+
+    const intersect_point = (point1, point2, point3, point4) => {
+        const ua = ((point4[0] - point3[0]) * (point1[1] - point3[1]) - 
+                (point4[1] - point3[1]) * (point1[0] - point3[0])) /
+                ((point4[1] - point3[1]) * (point2[0] - point1[0]) - 
+                (point4[0] - point3[0]) * (point2[1] - point1[1]));
+    
+        const ub = ((point2[0] - point1[0]) * (point1[1] - point3[1]) - 
+                    (point2[1] - point1[1]) * (point1[0] - point3[0])) /
+                    ((point4[1] - point3[1]) * (point2[0] - point1[0]) - 
+                    (point4[0] - point3[0]) * (point2[1] - point1[1]));
+        
+        const x = point1[0] + ua * (point2[0] - point1[0]);
+        const y = point1[1] + ua * (point2[1] - point1[1]);
+        
+        return [x, y]
+    }
+
+    // const drawHorizontalArea = (context, leftPoint, rightPoint, h, sep) => {
+    //     for (let y = 0; y < h; y+=sep) {
+    //         let p1 = p5Instance.createVector(leftPoint.x, leftPoint.y + y);
+    //         let p2 = p5Instance.createVector(rightPoint.x, rightPoint.y + y);
+    //         uts.handDraw(context, p1, p2);
+    //     }
+    // }
+
+    const drawVerticalArea = (context, leftTop, leftBottom, rightTop, rightBottom, sep) => {
+        let w = rightTop.x - leftTop.x;
+        for (let x = 0; x < w; x += sep) {
+            let topP = intersect_point([leftTop.x + x, 0], [leftTop.x + x, context.height], [leftTop.x, leftTop.y], [rightTop.x, rightTop.y]);
+            let bottomP = intersect_point([leftBottom.x + x, 0], [leftBottom.x + x, context.height], [leftBottom.x, leftBottom.y], [rightBottom.x, rightBottom.y]);
+            uts.handDraw(context, p5Instance.createVector(topP[0], topP[1]), p5Instance.createVector(bottomP[0], bottomP[1]));
         }
     }
+
+    const drawHorizontalArea = (context, leftTop, leftBottom, rightTop, rightBottom, sep) => {
+        let h = leftBottom.y - leftTop.y;
+        for (let y = 0; y < h; y += sep) {
+            let leftP = intersect_point([0, leftTop.y + y], [context.width, leftTop.y + y], [leftTop.x, leftTop.y], [leftBottom.x, leftBottom.y]);
+            let rightP = intersect_point([0, rightTop.y + y], [context.width, rightTop.y + y], [rightTop.x, rightTop.y], [rightBottom.x, rightBottom.y]);
+            uts.handDraw(context, p5Instance.createVector(leftP[0], leftP[1]), p5Instance.createVector(rightP[0], rightP[1]));
+        }
+    }
+
 
     const drawRoom = (context, leftTop, rightBottom) => {
         let scrnLeftTop = p5Instance.createVector(0, 0);
@@ -153,7 +190,26 @@ export default p5Instance => {
 
         drawRoom(pg, p5Instance.createVector(240, 140), p5Instance.createVector(840, 440));
 
-        drawHorizontalArea(pg, p5Instance.createVector(240, 140), p5Instance.createVector(840, 340), 300, 3);
+        // drawHorizontalArea(pg, p5Instance.createVector(240, 140), p5Instance.createVector(840, 340), 300, 3);
+
+        
+        uts.drawHorizontalArea(
+            pg, 
+            p5Instance.createVector(200, 140),
+            p5Instance.createVector(20, 540),
+            p5Instance.createVector(400, 140),
+            p5Instance.createVector(500, 540),
+            5
+        );
+
+        // drawVerticalArea(
+        //     pg, 
+        //     p5Instance.createVector(20, 140),
+        //     p5Instance.createVector(20, 540),
+        //     p5Instance.createVector(300, 240),
+        //     p5Instance.createVector(300, 340),
+        //     5
+        // );
 
         p5Instance.text("X: "+ p5Instance.mouseX, 0, p5Instance.height/4);
         p5Instance.text("Y: "+ p5Instance.mouseY, 0, p5Instance.height/2);

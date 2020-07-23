@@ -14,8 +14,11 @@ import levelMountains from './level-mountains.js';
 import levelQuads from './level-quads.js';
 import levelEmpty from './level-empty.js';
 import levelTest from './level-test.js';
+import levelRoom from './level-room.js';
 
-var mouseOverWhichRoomArea= 3, levelData = [ levelTest ];
+import vants from './vants.js';
+
+var mouseOverWhichRoomArea= 3, levelData = [ vants ];
   
   
 
@@ -93,6 +96,8 @@ new p5(p5 => {
         // p5.drawSprite(drop2);
         levelManager.draw();
         // p5.drawSprite(river);
+        p5.text("X: "+ p5.mouseX, 0, p5.height/4);
+        p5.text("Y: "+ p5.mouseY, 0, p5.height/2);
     }
 
 });
