@@ -34,7 +34,7 @@ new p5(p5 => {
 
     const levelManager = new LevelManager(levels);
     let room, lightSwitch, drop, drop2, river;
-    let isDarkMode = false;
+    let isDarkMode = true;
     p5.preload = () => {
         // lightSwitch = p5.createSprite(170, 320);
         // lightSwitch.scale = .4;
