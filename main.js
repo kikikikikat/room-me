@@ -18,7 +18,7 @@ import levelRoom from './level-room.js';
 
 import vants from './vants.js';
 
-var mouseOverWhichRoomArea= 3, levelData = [ vants ];
+var patches = [];
   
   
 
@@ -26,15 +26,20 @@ new p5(p5 => {
     const levels = [];
     let roomArea;
     let uts = utils(p5);
-    for (let i = 0; i < levelData.length; i++) {
+    // for (let i = 0; i < levelData.length; i++) {
 
-        let level = new Level(i, levelData[i] && levelData[i](p5));
-        levels.push(level);
+    //     let level = new Level(i, levelData[i] && levelData[i](p5));
+    //     levels.push(level);
+    // }
+
+    for (let i = 0; i < 9; i++) {
+        patches.push(vants(p5));
     }
 
-    const levelManager = new LevelManager(levels);
+
+    // const levelManager = new LevelManager(levels);
     let room, lightSwitch, drop, drop2, river;
-    let isDarkMode = true;
+    let isDarkMode = false;
     p5.preload = () => {
         // lightSwitch = p5.createSprite(170, 320);
         // lightSwitch.scale = .4;
@@ -47,8 +52,8 @@ new p5(p5 => {
 
         // roomArea = p5.loadImage('assets/room-area.png');
 
-        // drop = p5.createSprite(400, 300);
-        // drop.addAnimation('normal', 'assets/water-drop/frame_00001.png', 'assets/water-drop/frame_00017.png');
+        drop = p5.createSprite(400, 300);
+        drop.addAnimation('normal', 'assets/water-drop/frame_00001.png', 'assets/water-drop/frame_00017.png');
         // drop2 = p5.createSprite(410, 300);
         // drop2.addAnimation('normal', 'assets/water-drop/frame_00001.png', 'assets/water-drop/frame_00017.png');
     }
@@ -62,9 +67,25 @@ new p5(p5 => {
 
     p5.setup = () => {
         p5.rectMode(p5.CENTER);
-        levelManager.start();
-        window.levelManager = levelManager;
+        // window.levelManager = levelManager;
         p5.createCanvas(1280, 720);
+        p5.imageMode(p5.CENTER);
+        patches.forEach((p, i) => {
+            let y = 0;
+            if (i > 5) {
+                y = 2;
+            } else if (i > 2) {
+                y = 1;
+            }
+            p.start(200 + (i % 3) * 250 , 100 + y * 250, 100, 100);
+        })
+
+        // for (let i = 0; i < 3; i++) {
+        //     for (let j = 0; j < 3; j++) {
+        //         let p = patches[i + j];
+        //         p.start(400 + (i % 3) * 100 , 200 + j * 100, 100, 100);
+        //     }
+        // }
         // lightSwitch.setCollider('circle', 0, 0, 64);
         // lightSwitch.onMousePressed = () => {
         //     console.log('pressed switch');
@@ -83,19 +104,22 @@ new p5(p5 => {
         // }
     };
 
-    p5.mouseMoved = () => {
-        levelManager.mouseMoved();
-    }
+    // p5.mouseMoved = () => {
+    //     levelManager.mouseMoved();
+    // }
 
     p5.draw = () => {
         p5.background(isDarkMode ? p5.color(0, 0, 0) : p5.color(255));
         // p5.drawSprite(room);
         // p5.drawSprite(lightSwitch);
-        // p5.drawSprite(drop);
+        p5.drawSprite(drop);
         // p5.tint(255, 120);
         // p5.drawSprite(drop2);
-        levelManager.draw();
+        // levelManager.draw();
         // p5.drawSprite(river);
+        patches.forEach(p => {
+            p.draw();
+        })
         p5.text("X: "+ p5.mouseX, 0, p5.height/4);
         p5.text("Y: "+ p5.mouseY, 0, p5.height/2);
     }
@@ -103,7 +127,7 @@ new p5(p5 => {
 });
 
 export default {
-    mouseOverWhichRoomArea: mouseOverWhichRoomArea
+
 };
 
 

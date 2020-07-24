@@ -58,9 +58,14 @@ export default p5Instance => {
 
     let vants = [];
 
+    let contextPos, contextWidth, contextHeight;
 
-    const start = () => {
-        pg = p5Instance.createGraphics(200, 200);
+
+    const start = (x, y, w, h) => {
+        contextWidth = w;
+        contextHeight = h;
+        pg = p5Instance.createGraphics(contextWidth, contextHeight);
+        contextPos = p5Instance.createVector(x, y);
         me = drawSomething('me', p5Instance.mouseX, p5Instance.mouseY);
         for (let i = 0; i < 40; i++) {
             vants.push(new Vant(p5Instance, pg.width / 2, pg.height / 2, pg));
@@ -83,22 +88,19 @@ export default p5Instance => {
 
 
     const draw = () => {
-        p5Instance.image(pg, 100, 200);
+        p5Instance.image(pg, contextPos.x, contextPos.y);
 
-        pg.background(255);
+        //pg.background(255);
+        pg.clear();
 
         me.position.x = p5Instance.mouseX;
         me.position.y = p5Instance.mouseY;
 
-        pg.fill('black');
-        pg.stroke('black');
-        pg.rect(200, 300, 100, 300);
-        // pg.rect(200, 200, 20, 20);
-        uts.handDraw(pg, p5Instance.createVector(20, 20), p5Instance.createVector(40, 40));
+        // pg.fill('black');
+        // pg.stroke('black');
+        // //pg.rect(200, 300, 100, 300);
 
-        pg.set(10, 10, [0, 0, 255, 255]);
 
-        pg.set(200, 200, [0, 0, 0, 255]);
 
         pg.updatePixels();
 
@@ -110,7 +112,7 @@ export default p5Instance => {
 
         vants.forEach(v => v.draw(pg, p5Instance));
 
-        p5Instance.drawSprites();
+        //p5Instance.drawSprites();
 
 
 
