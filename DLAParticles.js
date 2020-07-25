@@ -1,6 +1,6 @@
 
 import utils from './utils.js';
-import Vant from './Vant.js';
+import DLAParticle from './DLAParticle.js';
 
 export default p5Instance => {
 
@@ -18,8 +18,8 @@ export default p5Instance => {
         contextPos = p5Instance.createVector(x, y);
         pg.contextPos = contextPos;
         me = drawSomething('me', p5Instance.mouseX, p5Instance.mouseY);
-        for (let i = 0; i < 40; i++) {
-            vants.push(new Vant(p5Instance, pg.width / 2, pg.height / 2, pg));
+        for (let i = 0; i < 5; i++) {
+            vants.push(new DLAParticle(p5Instance, pg.width / 2, pg.height / 2, pg));
         }
     }
 
@@ -27,8 +27,6 @@ export default p5Instance => {
         let img = p5Instance.loadImage(`assets/${name}.png`);
         let sth = p5Instance.createSprite(x, y, 40, 40);
         sth.rotateToDirection = true;
-        // me.velocity.x = 4;
-        //me.setCollider('circle', 0, 0, 200);
         sth.addImage(img);
         return sth;
 
@@ -44,28 +42,22 @@ export default p5Instance => {
         pg.background(255);
         //pg.clear();
 
+        pg.fill('black');
+        pg.stroke('black');
+        pg.rectMode(pg.CENTER);
+        pg.rect(pg.width / 2, pg.height / 2, 1, 1);
+
         me.position.x = p5Instance.mouseX;
         me.position.y = p5Instance.mouseY;
-
-        // pg.fill('black');
-        // pg.stroke('black');
-        // //pg.rect(200, 300, 100, 300);
 
 
 
         pg.updatePixels();
 
-        // if (p5Instance.frameCount > 40) {
-        //     p5Instance.noLoop();
-        // }
 
         me.maxSpeed = 5;
 
         vants.forEach(v => v.draw(pg, p5Instance));
-
-        //p5Instance.drawSprites();
-
-
 
 
 

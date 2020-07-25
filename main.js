@@ -18,6 +18,9 @@ import levelRoom from './level-room.js';
 
 import vants from './vants.js';
 
+import DLAParticles from './DLAParticles.js';
+import persons from './persons.js';
+
 var patches = [];
   
   
@@ -25,9 +28,11 @@ var patches = [];
 new p5(p5Instance => {
     let uts = utils(p5Instance);
 
-    for (let i = 0; i < 4; i++) {
-        patches.push(vants(p5Instance));
-    }
+    patches = [
+        persons(p5Instance),
+        vants(p5Instance),
+        DLAParticles(p5Instance),
+    ];
 
     let room, lightSwitch, drop, drop2, river;
     let isDarkMode = false;
@@ -108,7 +113,6 @@ new p5(p5Instance => {
     p5Instance.draw = () => {
         p5Instance.background(isDarkMode ? p5Instance.color(0, 0, 0) : p5Instance.color(255));
         drawCentralRoom(roomWPerc, roomHPerc);
-        // p5Instance.drawSprite(room);
         // p5Instance.drawSprite(lightSwitch);
         p5Instance.drawSprite(drop);
         // p5Instance.tint(255, 120);
@@ -117,7 +121,6 @@ new p5(p5Instance => {
         // p5Instance.drawSprite(river);
         patches.forEach(p => {
             p.draw();
-            console.log(p);
             uts.drawRec(
                 p5Instance,
                 p.contextPos,
