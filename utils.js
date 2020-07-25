@@ -101,12 +101,42 @@ export default (p5Instance) => {
         drawHorizontalArea(context, leftTop, leftBottom, rightTop, rightBottom, sep, opts);
     }
 
+    const drawRec = (context, leftTop, rightBottom) => {
+        let leftBottom = p5Instance.createVector(leftTop.x, rightBottom.y);
+        let rightTop = p5Instance.createVector(rightBottom.x, leftTop.y);
+
+        handDraw(context, leftTop, rightTop);
+        handDraw(context, rightTop, rightBottom);
+        handDraw(context, leftTop, leftBottom);
+        handDraw(context, leftBottom, rightBottom);
+    }
+
+    const drawRoom = (context, leftTop, rightBottom) => {
+        let screenLeftTop = p5Instance.createVector(0, 0),
+            screenLeftBottom = p5Instance.createVector(0, context.height),
+            screenRightTop = p5Instance.createVector(context.width, 0),
+            screenRightBottom = p5Instance.createVector(context.width, context.height);
+
+        let leftBottom = p5Instance.createVector(leftTop.x, rightBottom.y);
+        let rightTop = p5Instance.createVector(rightBottom.x, leftTop.y);
+
+
+        drawRec(context, leftTop, rightBottom);
+
+        handDraw(context, screenLeftTop, leftTop);
+        handDraw(context, screenRightTop, rightTop);
+        handDraw(context, screenLeftBottom, leftBottom);
+        handDraw(context, screenRightBottom, rightBottom);
+    }
+
     return {
         getColor,
         handDraw,
         drawHorizontalArea,
         drawRecHorizontal,
-        drawVerticalArea
+        drawVerticalArea,
+        drawRoom,
+        drawRec
     }
 
 };

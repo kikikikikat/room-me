@@ -66,6 +66,7 @@ export default p5Instance => {
         contextHeight = h;
         pg = p5Instance.createGraphics(contextWidth, contextHeight);
         contextPos = p5Instance.createVector(x, y);
+        pg.contextPos = contextPos;
         me = drawSomething('me', p5Instance.mouseX, p5Instance.mouseY);
         for (let i = 0; i < 40; i++) {
             vants.push(new Vant(p5Instance, pg.width / 2, pg.height / 2, pg));
@@ -90,8 +91,8 @@ export default p5Instance => {
     const draw = () => {
         p5Instance.image(pg, contextPos.x, contextPos.y);
 
-        //pg.background(255);
-        pg.clear();
+        pg.background(255);
+        //pg.clear();
 
         me.position.x = p5Instance.mouseX;
         me.position.y = p5Instance.mouseY;
@@ -129,6 +130,7 @@ export default p5Instance => {
     return {
         start,
         draw,
+        contextPos: () => contextPos,
         cleanup
     }
 

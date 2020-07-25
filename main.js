@@ -22,39 +22,28 @@ var patches = [];
   
   
 
-new p5(p5 => {
-    const levels = [];
-    let roomArea;
-    let uts = utils(p5);
-    // for (let i = 0; i < levelData.length; i++) {
+new p5(p5Instance => {
+    let uts = utils(p5Instance);
 
-    //     let level = new Level(i, levelData[i] && levelData[i](p5));
-    //     levels.push(level);
-    // }
-
-    for (let i = 0; i < 9; i++) {
-        patches.push(vants(p5));
+    for (let i = 0; i < 4; i++) {
+        patches.push(vants(p5Instance));
     }
 
-
-    // const levelManager = new LevelManager(levels);
     let room, lightSwitch, drop, drop2, river;
     let isDarkMode = false;
-    p5.preload = () => {
-        // lightSwitch = p5.createSprite(170, 320);
+
+    let SCREEN_WIDTH = 200;
+    let SCREEN_HEIGHT = 150;
+    p5Instance.preload = () => {
+        // lightSwitch = p5Instance.createSprite(170, 320);
         // lightSwitch.scale = .4;
         // lightSwitch.addAnimation('day', 'assets/switch/frame_1.png', 'assets/switch/frame_4.png');
         // lightSwitch.addAnimation('dark', 'assets/switch-pressed/frame_1.png', 'assets/switch-pressed/frame_2.png');
 
-        // room = p5.createSprite(640, 360);
-        // room.addAnimation('day', 'assets/room/frame_1.png', 'assets/room/frame_4.png');
-        // room.addAnimation('dark', 'assets/room-invert/frame_1.png', 'assets/room-invert/frame_4.png');
 
-        // roomArea = p5.loadImage('assets/room-area.png');
-
-        drop = p5.createSprite(400, 300);
+        drop = p5Instance.createSprite(400, 300);
         drop.addAnimation('normal', 'assets/water-drop/frame_00001.png', 'assets/water-drop/frame_00017.png');
-        // drop2 = p5.createSprite(410, 300);
+        // drop2 = p5Instance.createSprite(410, 300);
         // drop2.addAnimation('normal', 'assets/water-drop/frame_00001.png', 'assets/water-drop/frame_00017.png');
     }
 
@@ -65,19 +54,30 @@ new p5(p5 => {
         isDarkMode ? lightSwitch.changeAnimation('dark') : lightSwitch.changeAnimation('day');
     }
 
-    p5.setup = () => {
-        p5.rectMode(p5.CENTER);
-        // window.levelManager = levelManager;
-        p5.createCanvas(1280, 720);
-        p5.imageMode(p5.CENTER);
+    let roomWPerc, roomHPerc;
+
+    const drawCentralRoom = (wPerc, hPerc) => {
+        let roomWidth = p5Instance.width * wPerc;
+        let roomHeight = p5Instance.height * hPerc;
+        let roomLeftTop = p5Instance.createVector((p5Instance.width - roomWidth) / 2, (p5Instance.height - roomHeight) / 2);
+        let roomRightBottom = p5Instance.createVector((p5Instance.width + roomWidth) / 2, (p5Instance.height + roomHeight) / 2);
+        uts.drawRoom(p5Instance, roomLeftTop, roomRightBottom);
+    }
+
+    p5Instance.setup = () => {
+        p5Instance.rectMode(p5Instance.CENTER);
+        p5Instance.createCanvas(p5Instance.windowWidth, p5Instance.windowHeight);
+        roomWPerc = 0.15;
+        roomHPerc = 0.4;
+
+        //p5Instance.imageMode(p5Instance.CENTER);
         patches.forEach((p, i) => {
             let y = 0;
-            if (i > 5) {
-                y = 2;
-            } else if (i > 2) {
+            if (i > 1) {
                 y = 1;
             }
-            p.start(200 + (i % 3) * 250 , 100 + y * 250, 100, 100);
+            p.contextPos = p5Instance.createVector(p5Instance.width * .1 + (i % 2) * 420, 100 + y * 250);
+            p.start(p.contextPos.x , p.contextPos.y, SCREEN_WIDTH, SCREEN_HEIGHT);
         })
 
         // for (let i = 0; i < 3; i++) {
@@ -104,24 +104,38 @@ new p5(p5 => {
         // }
     };
 
-    // p5.mouseMoved = () => {
-    //     levelManager.mouseMoved();
-    // }
 
-    p5.draw = () => {
-        p5.background(isDarkMode ? p5.color(0, 0, 0) : p5.color(255));
-        // p5.drawSprite(room);
-        // p5.drawSprite(lightSwitch);
-        p5.drawSprite(drop);
-        // p5.tint(255, 120);
-        // p5.drawSprite(drop2);
+    p5Instance.draw = () => {
+        p5Instance.background(isDarkMode ? p5Instance.color(0, 0, 0) : p5Instance.color(255));
+        drawCentralRoom(roomWPerc, roomHPerc);
+        // p5Instance.drawSprite(room);
+        // p5Instance.drawSprite(lightSwitch);
+        p5Instance.drawSprite(drop);
+        // p5Instance.tint(255, 120);
+        // p5Instance.drawSprite(drop2);
         // levelManager.draw();
-        // p5.drawSprite(river);
+        // p5Instance.drawSprite(river);
         patches.forEach(p => {
             p.draw();
-        })
-        p5.text("X: "+ p5.mouseX, 0, p5.height/4);
-        p5.text("Y: "+ p5.mouseY, 0, p5.height/2);
+            console.log(p);
+            uts.drawRec(
+                p5Instance,
+                p.contextPos,
+                p5Instance.createVector(p.contextPos.x + SCREEN_WIDTH, p.contextPos.y + SCREEN_HEIGHT)
+            )
+        });
+
+
+
+
+        //roomWPerc = p5Instance.noise(p5Instance.frameCount * .01);
+
+
+        // if (p5Instance.frameCount > 30) {
+        //     p5Instance.noLoop();
+        // }
+        p5Instance.text("X: "+ p5Instance.mouseX, 0, p5Instance.height/4);
+        p5Instance.text("Y: "+ p5Instance.mouseY, 0, p5Instance.height/2);
     }
 
 });

@@ -51,10 +51,10 @@ export default p5Instance => {
 
 
     const drawRoom = (context, leftTop, rightBottom) => {
-        let scrnLeftTop = p5Instance.createVector(0, 0);
-        let scrnLeftBottom = p5Instance.createVector(0, p5Instance.height - 2);
-        let scrnRightTop = p5Instance.createVector(p5Instance.width - 2, 0);
-        let scrnRightBottom = p5Instance.createVector(p5Instance.width - 2, p5Instance.height - 2);
+        let screenLeftTop = p5Instance.createVector(0, 0),
+            screenLeftBottom = p5Instance.createVector(0, context.height),
+            screenRightTop = p5Instance.createVector(context.width, 0),
+            screenRightBottom = p5Instance.createVector(context.width, context.height);
 
         let leftBottom = p5Instance.createVector(leftTop.x, rightBottom.y);
         let rightTop = p5Instance.createVector(rightBottom.x, leftTop.y);
@@ -63,8 +63,6 @@ export default p5Instance => {
         uts.handDraw(context, rightTop, rightBottom);
         uts.handDraw(context, leftTop, leftBottom);
         uts.handDraw(context, leftBottom, rightBottom);
-
-        console.log(screenLeftBottom);
 
         uts.handDraw(context, screenLeftTop, leftTop);
         uts.handDraw(context, screenRightTop, rightTop);
