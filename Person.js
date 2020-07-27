@@ -1,6 +1,4 @@
 export default class Person {
-
-
     constructor(p5Instance, x, y, context, group, opts) {
         var opts = opts || {};
         this.context = context;
@@ -15,10 +13,11 @@ export default class Person {
         this.group = group;
         this.group.add(this.sprite);
 
-        this.immunity = p5Instance.random(0.1, 0.9);
-        console.log(p5Instance.random(0, 0.2));
-        this.isSick = (p5Instance.random(0, 0.3) < 0.2) ? false : true;
-        this.sickChance = opts.sickChance || 0.3;
+        this.initialSickPercentage = opts.initialSickPercentage || 0.2;
+        this.infectiousness = opts.infectiousness || 0.5;
+        this.speed = opts.speed || 1;
+
+        this.isSick = (p5Instance.random() < this.initialSickPercentage ) ? true : false;
     }
 
     __setPixels(x, y, color) {
@@ -31,23 +30,30 @@ export default class Person {
 
     __isColliding() {
         this.sprite.collide(this.group, (me, other) => {
-            if (me.person.isSick || other.person.isSick) {
-                me.person.isSick = true;
-                other.person.isSick = true;
+            let diceResult;
+            if (me.person.isSick && !other.person.isSick) {
+                diceResult = this.p5.random() < this.infectiousness;
+                if (diceResult) {
+                    other.person.isSick = true;
+                }
+            } else if (!me.person.isSick && other.person.isSick) {
+                diceResult = this.p5.random() < this.infectiousness;
+                if (diceResult) {
+                    me.person.isSick = true;
+                }               
             }
         })
     }
 
     draw() {
         this.dir += this.context.random(0, 360);
-        this.dir -= this.context.random(0, 360);
-        this.sprite.setSpeed(1, this.dir);
+        //this.dir -= this.context.random(0, 360);
+        this.sprite.setSpeed(this.speed, this.dir);
         this.sprite.update();
 
         this.__isColliding();
 
         this.sprite.shapeColor = this.isSick ? [255, 0, 0, 255] : [0, 0, 0, 255];
-        //this.context.updatePixels();
         this.context.drawSprites();
     }
 }

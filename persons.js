@@ -2,7 +2,7 @@
 import utils from './utils.js';
 import Person from './Person.js';
 
-export default p5Instance => {
+export default (p5Instance, opts) => {
 
     let pg, me, uts = utils(p5Instance);
 
@@ -11,6 +11,8 @@ export default p5Instance => {
     let contextPos, contextWidth, contextHeight;
 
     let personsGroup;
+
+    var opts = opts || {};
 
 
     const start = (x, y, w, h) => {
@@ -22,7 +24,14 @@ export default p5Instance => {
         me = drawSomething('me', p5Instance.mouseX, p5Instance.mouseY);
         personsGroup = new pg.Group();
         for (let i = 0; i < 20; i++) {
-            vants.push(new Person(p5Instance, p5Instance.random(0, pg.width), p5Instance.random(0, pg.height), pg, personsGroup));
+            vants.push(new Person(
+                p5Instance, 
+                p5Instance.random(0, pg.width), 
+                p5Instance.random(0, pg.height), 
+                pg, 
+                personsGroup,
+                opts
+            ));
         }
 
     }

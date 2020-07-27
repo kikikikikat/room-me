@@ -2,13 +2,15 @@
 import utils from './utils.js';
 import Vant from './Vant.js';
 
-export default p5Instance => {
+export default (p5Instance, opts) => {
 
     let pg, me, uts = utils(p5Instance);
 
     let vants = [];
 
     let contextPos, contextWidth, contextHeight;
+
+    var opts = opts || {};
 
 
     const start = (x, y, w, h) => {
@@ -18,8 +20,8 @@ export default p5Instance => {
         contextPos = p5Instance.createVector(x, y);
         pg.contextPos = contextPos;
         me = drawSomething('me', p5Instance.mouseX, p5Instance.mouseY);
-        for (let i = 0; i < 40; i++) {
-            vants.push(new Vant(p5Instance, pg.width / 2, pg.height / 2, pg));
+        for (let i = 0; i < 3; i++) {
+            vants.push(new Vant(p5Instance, pg.width / 2, pg.height / 2, pg, opts));
         }
     }
 

@@ -52,18 +52,18 @@ export default class Vant {
         let x = this.sprite.position.x;
         let y = this.sprite.position.y;
         if (!this.__isMyColorOfThisColor()) {
-            this.dir += 90;
+            this.dir += 30;
             //this.context.set(x, y, [255, 255, 255, 255]);
             this.__setPixels(x, y, [255, 255, 255, 255]);
         } else {
-            this.dir -=90;
+            this.dir -=30;
             //this.context.set(x, y, [0, 0, 0, 255]);
             this.__setPixels(x, y, [0, 0, 0, 255]);
         }
     }
 
     draw() {
-        this.sprite.setSpeed(1, this.dir);
+        this.sprite.setSpeed(.1, this.dir);
         this.__turn();
     }
 } 

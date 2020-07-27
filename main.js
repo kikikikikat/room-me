@@ -29,7 +29,7 @@ new p5(p5Instance => {
     let uts = utils(p5Instance);
 
     patches = [
-        persons(p5Instance),
+        persons(p5Instance, {initialSickPercentage: 0.1}),
         vants(p5Instance),
         DLAParticles(p5Instance),
     ];
@@ -39,6 +39,8 @@ new p5(p5Instance => {
 
     let SCREEN_WIDTH = 200;
     let SCREEN_HEIGHT = 150;
+
+    let button;
     p5Instance.preload = () => {
         // lightSwitch = p5Instance.createSprite(170, 320);
         // lightSwitch.scale = .4;
@@ -85,6 +87,12 @@ new p5(p5Instance => {
             p.start(p.contextPos.x , p.contextPos.y, SCREEN_WIDTH, SCREEN_HEIGHT);
         })
 
+        button = p5Instance.createButton('click me');
+        button.position(p5Instance.width / 2 - 20, p5Instance.height * .8);
+        button.mousePressed(()=> {
+            console.log('clciked button!');
+        });
+
         // for (let i = 0; i < 3; i++) {
         //     for (let j = 0; j < 3; j++) {
         //         let p = patches[i + j];
@@ -127,6 +135,18 @@ new p5(p5Instance => {
                 p5Instance.createVector(p.contextPos.x + SCREEN_WIDTH, p.contextPos.y + SCREEN_HEIGHT)
             )
         });
+
+        if (p5Instance.mouseX > 500) {
+            p5Instance.cursor('grab');
+        } else {
+            p5Instance.cursor('cell');
+        }
+
+        p5Instance.push();
+        p5Instance.translate(400, 500);
+        p5Instance.rotate(p5Instance.frameCount * .1);
+        uts.drawRadiantLines(p5Instance, 5, 10, 50, p5Instance.TWO_PI * .3);
+        p5Instance.pop();
 
 
 

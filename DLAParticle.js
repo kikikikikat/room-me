@@ -1,9 +1,12 @@
 export default class DLAParticle {
-    constructor(p5Instance, x, y, context) {
+    constructor(p5Instance, x, y, context, opts) {
+        var opts = opts || {};
         this.sprite = p5Instance.createSprite(x, y, 10, 10);
         this.dir = p5Instance.random(0, 360);
         this.context = context;
         this.p5 = p5Instance;
+
+        this.wiggleAngle = opts.wiggleAngle || 60;
     }
 
     __setPixels(x, y, color) {
@@ -37,14 +40,13 @@ export default class DLAParticle {
     }
 
     draw() {
-        this.dir += this.p5.random(0, 360);
-        this.dir -= this.p5.random(0, 360);
+        this.dir += this.p5.random(0, this.wiggleAngle);
+        this.dir -= this.p5.random(0, this.wiggleAngle);
         this.sprite.setSpeed(1, this.dir);
         let x = this.sprite.position.x;
         let y = this.sprite.position.y;
         if (this.__checkAnyNeighborIsColor(x, y, [0, 0, 0])) {
             this.__setPixels(x, y, [0, 0, 0, 255]);
-            this.sprite.life = 20;
         }
     }
 }
