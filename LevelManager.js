@@ -12,7 +12,7 @@ export default class LevelManager {
         }
         if (this.levels.length > 0) {
             this.currentLevel = this.levels.shift();
-            this.currentLevel.start();
+            this.currentLevel.start(0, 0, 1280, 720);
         } else {
             if (typeof noLevelLeftCallback === 'function') {
                 noLevelLeftCallback();

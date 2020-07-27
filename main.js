@@ -21,18 +21,30 @@ import vants from './vants.js';
 import DLAParticles from './DLAParticles.js';
 import persons from './persons.js';
 
+import levelWindows from './level-windows.js';
+
 var patches = [];
-  
+
+var levelData = [ levelWindows ];
   
 
 new p5(p5Instance => {
     let uts = utils(p5Instance);
+    const levels = [];
 
-    patches = [
-        persons(p5Instance, {initialSickPercentage: 0.1}),
-        vants(p5Instance),
-        DLAParticles(p5Instance),
-    ];
+    for (let i = 0; i < levelData.length; i++) {
+
+        let level = new Level(i, levelData[i] && levelData[i](p5Instance));
+        levels.push(level);
+    }
+
+    const levelManager = new LevelManager(levels);
+
+    // patches = [
+    //     persons(p5Instance, {initialSickPercentage: 0.1}),
+    //     vants(p5Instance),
+    //     DLAParticles(p5Instance),
+    // ];
 
     let room, lightSwitch, drop, drop2, river;
     let isDarkMode = false;
@@ -73,19 +85,23 @@ new p5(p5Instance => {
 
     p5Instance.setup = () => {
         p5Instance.rectMode(p5Instance.CENTER);
-        p5Instance.createCanvas(p5Instance.windowWidth, p5Instance.windowHeight);
+        //p5Instance.createCanvas(p5Instance.windowWidth, p5Instance.windowHeight);
+        p5Instance.createCanvas(1280, 720);
         roomWPerc = 0.15;
         roomHPerc = 0.4;
 
+        levelManager.start();
+        window.levelManager = levelManager;
+
         //p5Instance.imageMode(p5Instance.CENTER);
-        patches.forEach((p, i) => {
-            let y = 0;
-            if (i > 1) {
-                y = 1;
-            }
-            p.contextPos = p5Instance.createVector(p5Instance.width * .1 + (i % 2) * 420, 100 + y * 250);
-            p.start(p.contextPos.x , p.contextPos.y, SCREEN_WIDTH, SCREEN_HEIGHT);
-        })
+        // patches.forEach((p, i) => {
+        //     let y = 0;
+        //     if (i > 1) {
+        //         y = 1;
+        //     }
+        //     p.contextPos = p5Instance.createVector(p5Instance.width * .1 + (i % 2) * 420, 100 + y * 250);
+        //     p.start(p.contextPos.x , p.contextPos.y, SCREEN_WIDTH, SCREEN_HEIGHT);
+        // })
 
         button = p5Instance.createButton('click me');
         button.position(p5Instance.width / 2 - 20, p5Instance.height * .8);
@@ -117,6 +133,10 @@ new p5(p5Instance => {
         // }
     };
 
+    p5Instance.mouseMoved = () => {
+        levelManager.mouseMoved();
+    }
+
 
     p5Instance.draw = () => {
         p5Instance.background(isDarkMode ? p5Instance.color(0, 0, 0) : p5Instance.color(255));
@@ -125,22 +145,22 @@ new p5(p5Instance => {
         p5Instance.drawSprite(drop);
         // p5Instance.tint(255, 120);
         // p5Instance.drawSprite(drop2);
-        // levelManager.draw();
+        levelManager.draw();
         // p5Instance.drawSprite(river);
-        patches.forEach(p => {
-            p.draw();
-            uts.drawRec(
-                p5Instance,
-                p.contextPos,
-                p5Instance.createVector(p.contextPos.x + SCREEN_WIDTH, p.contextPos.y + SCREEN_HEIGHT)
-            )
-        });
+        // patches.forEach(p => {
+        //     p.draw();
+        //     uts.drawRec(
+        //         p5Instance,
+        //         p.contextPos,
+        //         p5Instance.createVector(p.contextPos.x + SCREEN_WIDTH, p.contextPos.y + SCREEN_HEIGHT)
+        //     )
+        // });
 
-        if (p5Instance.mouseX > 500) {
-            p5Instance.cursor('grab');
-        } else {
-            p5Instance.cursor('cell');
-        }
+        // if (p5Instance.mouseX > 500) {
+        //     p5Instance.cursor('grab');
+        // } else {
+        //     p5Instance.cursor('cell');
+        // }
 
         p5Instance.push();
         p5Instance.translate(400, 500);
