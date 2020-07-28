@@ -22,10 +22,11 @@ import DLAParticles from './DLAParticles.js';
 import persons from './persons.js';
 
 import levelWindows from './level-windows.js';
+import levelStairs from './level-stairs.js';
 
 var patches = [];
 
-var levelData = [ levelWindows ];
+var levelData = [ levelStairs, levelWindows ];
   
 
 new p5(p5Instance => {
@@ -86,7 +87,7 @@ new p5(p5Instance => {
     p5Instance.setup = () => {
         p5Instance.rectMode(p5Instance.CENTER);
         //p5Instance.createCanvas(p5Instance.windowWidth, p5Instance.windowHeight);
-        p5Instance.createCanvas(1280, 720);
+        p5Instance.createCanvas(p5Instance.windowWidth, p5Instance.windowHeight);
         roomWPerc = 0.15;
         roomHPerc = 0.4;
 
@@ -103,10 +104,11 @@ new p5(p5Instance => {
         //     p.start(p.contextPos.x , p.contextPos.y, SCREEN_WIDTH, SCREEN_HEIGHT);
         // })
 
-        button = p5Instance.createButton('click me');
+        button = p5Instance.createButton('next level');
         button.position(p5Instance.width / 2 - 20, p5Instance.height * .8);
         button.mousePressed(()=> {
             console.log('clciked button!');
+            levelManager.next();
         });
 
         // for (let i = 0; i < 3; i++) {
@@ -137,9 +139,14 @@ new p5(p5Instance => {
         levelManager.mouseMoved();
     }
 
+    p5Instance.windowResized = () => {
+        p5Instance.resizeCanvas(p5Instance.windowWidth, p5Instance.windowHeight);
+      }
+
 
     p5Instance.draw = () => {
-        p5Instance.background(isDarkMode ? p5Instance.color(0, 0, 0) : p5Instance.color(255));
+        //p5Instance.background(isDarkMode ? p5Instance.color(0, 0, 0) : p5Instance.color(255));
+        p5Instance.background(30);
         drawCentralRoom(roomWPerc, roomHPerc);
         // p5Instance.drawSprite(lightSwitch);
         p5Instance.drawSprite(drop);
@@ -162,11 +169,11 @@ new p5(p5Instance => {
         //     p5Instance.cursor('cell');
         // }
 
-        p5Instance.push();
-        p5Instance.translate(400, 500);
-        p5Instance.rotate(p5Instance.frameCount * .1);
-        uts.drawRadiantLines(p5Instance, 5, 10, 50, p5Instance.TWO_PI * .3);
-        p5Instance.pop();
+        // p5Instance.push();
+        // p5Instance.translate(400, 500);
+        // p5Instance.rotate(p5Instance.frameCount * .1);
+        // uts.drawRadiantLines(p5Instance, 5, 10, 50, p5Instance.TWO_PI * .3);
+        // p5Instance.pop();
 
 
 

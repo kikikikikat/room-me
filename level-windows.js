@@ -10,8 +10,8 @@ export default p5Instance => {
 
     const start = () => {
         scaleFactor = 0.5;
-        pg = p5Instance.createGraphics(1280, 720);
-        windows = p5Instance.createSprite(320, 180); // put sprite at (0, 0)
+        pg = p5Instance.createGraphics(640, 420);
+        windows = p5Instance.createSprite(320, 220); // put sprite at (0, 0)
         windows.addAnimation('default', `assets/level-windows/frame_00001.png`, `assets/level-windows/frame_00002.png`);
         windows.scale = scaleFactor;
 
@@ -44,7 +44,9 @@ export default p5Instance => {
 
     const draw = () => {
         pg.background(255, 255, 255);
-        p5Instance.image(pg, 0, 0);
+        let pgX = p5Instance.windowWidth / 2 - pg.width / 2;
+        let pgY = p5Instance.windowHeight / 2 - pg.height / 2;
+        p5Instance.image(pg, pgX, pgY);
         p5Instance.push();
         p5Instance.translate(offsetX, offsetY);
         p5Instance.drawSprite(windows);
