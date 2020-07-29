@@ -39,7 +39,8 @@ export default (p5Instance) => {
     const handDraw = (context, p1, p2, opts) => {
         p5Instance.randomSeed(p5Instance.frameCount * p1.x * p1.y);
         var opts = opts || {};
-
+        
+        let offset = opts.offset || 2;
         context.strokeWeight(opts.strokeWeight || 1);
         if (opts.color) {
             context.stroke(opts.color[0], opts.color[1], opts.color[2], 255);
@@ -55,7 +56,7 @@ export default (p5Instance) => {
             
             let noise = p5Instance.noise(i + p5Instance.random(1000));
             let noise2 = p5Instance.noise(i + p5Instance.random(1000));
-            let offset = 2;
+            
             p.x = p5Instance.map(noise, 0, 1, p.x - offset, p.x + offset);
             p.y = p5Instance.map(noise2, 0, 1, p.y - offset, p.y + offset);
             points.push(p);
@@ -97,6 +98,14 @@ export default (p5Instance) => {
         let rightTop = p5Instance.createVector(origin.x + w, origin.y);
         let rightBottom = p5Instance.createVector(origin.x + w, origin.y + h);
         drawHorizontalArea(context, leftTop, leftBottom, rightTop, rightBottom, sep, opts);
+    }
+
+    const drawRecVertical = (context, origin, w, h, sep, opts) => {
+        let leftTop = origin;
+        let leftBottom = p5Instance.createVector(origin.x, origin.y + h);
+        let rightTop = p5Instance.createVector(origin.x + w, origin.y);
+        let rightBottom = p5Instance.createVector(origin.x + w, origin.y + h);
+        drawVerticalArea(context, leftTop, leftBottom, rightTop, rightBottom, sep, opts);
     }
 
     const drawRec = (context, leftTop, rightBottom) => {
@@ -142,11 +151,20 @@ export default (p5Instance) => {
 
     }
 
+    const isCloseEnough = (threshold, a, b) => {
+        let aPos = a instanceof p5.Vector ? a : this.p5.createVector(a.position.x, a.position.y);
+        let bPos = b instanceof p5.Vector ? b : this.p5.createVector(b.position.x, b.position.y);
+        let dist = p5.Vector.dist(aPos, bPos);
+        return dist <= threshold;
+    }
+
     return {
         getColor,
+        isCloseEnough,
         handDraw,
         drawHorizontalArea,
         drawRecHorizontal,
+        drawRecVertical,
         drawVerticalArea,
         drawRadiantLines,
         drawRoom,
