@@ -23,10 +23,11 @@ import persons from './persons.js';
 
 import levelWindows from './level-windows.js';
 import levelStairs from './level-stairs.js';
+import levelBiosphere from './level-biosphere.js';
 
 var patches = [];
 
-var levelData = [ levelStairs, levelWindows ];
+var levelData = [ levelBiosphere, levelWindows ];
   
 
 new p5(p5Instance => {
@@ -104,12 +105,12 @@ new p5(p5Instance => {
         //     p.start(p.contextPos.x , p.contextPos.y, SCREEN_WIDTH, SCREEN_HEIGHT);
         // })
 
-        button = p5Instance.createButton('next level');
-        button.position(p5Instance.width / 2 - 20, p5Instance.height * .8);
-        button.mousePressed(()=> {
-            console.log('clciked button!');
-            levelManager.next();
-        });
+        // button = p5Instance.createButton('next level');
+        // button.position(p5Instance.width / 2 - 20, p5Instance.height * .8);
+        // button.mousePressed(()=> {
+        //     console.log('clciked button!');
+        //     levelManager.next();
+        // });
 
         // for (let i = 0; i < 3; i++) {
         //     for (let j = 0; j < 3; j++) {

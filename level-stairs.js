@@ -45,7 +45,7 @@ export default p5Instance => {
         }
     ];
 
-        const isCloseEnough = (threshold, a, b) => {
+    const isCloseEnough = (threshold, a, b) => {
         let aPos = a instanceof p5.Vector ? a : p5Instance.createVector(a.position.x, a.position.y);
         let bPos = b instanceof p5.Vector ? b : p5Instance.createVector(b.position.x, b.position.y);
         let dist = p5.Vector.dist(aPos, bPos);

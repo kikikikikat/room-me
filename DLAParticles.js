@@ -47,8 +47,8 @@ export default (p5Instance, opts) => {
     const draw = () => {
         p5Instance.image(pg, contextPos.x, contextPos.y);
 
-        pg.background(255);
-        //pg.clear();
+        //pg.background(255);
+        pg.clear();
 
         pg.fill('black');
         pg.stroke('black');
