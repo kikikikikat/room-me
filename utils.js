@@ -71,8 +71,6 @@ export default (p5Instance) => {
                 context.line(p.x, p.y, points[i+1].x, points[i + 1].y);
             }
         }
-
-        context.stroke(60);
     }
 
     const drawHorizontalArea = (context, leftTop, leftBottom, rightTop, rightBottom, sep, opts) => {

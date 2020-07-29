@@ -25,9 +25,10 @@ import levelWindows from './level-windows.js';
 import levelStairs from './level-stairs.js';
 import levelBiosphere from './level-biosphere.js';
 
-var patches = [];
+import level_1 from './level-1-opening-room.js';
 
-var levelData = [ levelBiosphere, levelWindows ];
+
+var levelData = [  level_1 ];
   
 
 new p5(p5Instance => {
@@ -42,11 +43,6 @@ new p5(p5Instance => {
 
     const levelManager = new LevelManager(levels);
 
-    // patches = [
-    //     persons(p5Instance, {initialSickPercentage: 0.1}),
-    //     vants(p5Instance),
-    //     DLAParticles(p5Instance),
-    // ];
 
     let room, lightSwitch, drop, drop2, river;
     let isDarkMode = false;
@@ -69,55 +65,28 @@ new p5(p5Instance => {
     }
 
     const toggleSwitch = () => {
-        levelManager.next();
         isDarkMode = !isDarkMode;
         isDarkMode ? room.changeAnimation('dark') : room.changeAnimation('day');
         isDarkMode ? lightSwitch.changeAnimation('dark') : lightSwitch.changeAnimation('day');
     }
 
-    let roomWPerc, roomHPerc;
 
-    const drawCentralRoom = (wPerc, hPerc) => {
-        let roomWidth = p5Instance.width * wPerc;
-        let roomHeight = p5Instance.height * hPerc;
-        let roomLeftTop = p5Instance.createVector((p5Instance.width - roomWidth) / 2, (p5Instance.height - roomHeight) / 2);
-        let roomRightBottom = p5Instance.createVector((p5Instance.width + roomWidth) / 2, (p5Instance.height + roomHeight) / 2);
-        uts.drawRoom(p5Instance, roomLeftTop, roomRightBottom);
-    }
 
     p5Instance.setup = () => {
         p5Instance.rectMode(p5Instance.CENTER);
         //p5Instance.createCanvas(p5Instance.windowWidth, p5Instance.windowHeight);
         p5Instance.createCanvas(p5Instance.windowWidth, p5Instance.windowHeight);
-        roomWPerc = 0.15;
-        roomHPerc = 0.4;
 
         levelManager.start();
         window.levelManager = levelManager;
 
-        //p5Instance.imageMode(p5Instance.CENTER);
-        // patches.forEach((p, i) => {
-        //     let y = 0;
-        //     if (i > 1) {
-        //         y = 1;
-        //     }
-        //     p.contextPos = p5Instance.createVector(p5Instance.width * .1 + (i % 2) * 420, 100 + y * 250);
-        //     p.start(p.contextPos.x , p.contextPos.y, SCREEN_WIDTH, SCREEN_HEIGHT);
-        // })
+        button = p5Instance.createButton('next level');
+        button.position(p5Instance.width / 2 - 20, p5Instance.height * .8);
+        button.mousePressed(()=> {
+            console.log('clciked button!');
+            levelManager.next();
+        });
 
-        // button = p5Instance.createButton('next level');
-        // button.position(p5Instance.width / 2 - 20, p5Instance.height * .8);
-        // button.mousePressed(()=> {
-        //     console.log('clciked button!');
-        //     levelManager.next();
-        // });
-
-        // for (let i = 0; i < 3; i++) {
-        //     for (let j = 0; j < 3; j++) {
-        //         let p = patches[i + j];
-        //         p.start(400 + (i % 3) * 100 , 200 + j * 100, 100, 100);
-        //     }
-        // }
         // lightSwitch.setCollider('circle', 0, 0, 64);
         // lightSwitch.onMousePressed = () => {
         //     console.log('pressed switch');
@@ -147,28 +116,14 @@ new p5(p5Instance => {
 
     p5Instance.draw = () => {
         //p5Instance.background(isDarkMode ? p5Instance.color(0, 0, 0) : p5Instance.color(255));
-        p5Instance.background(30);
-        drawCentralRoom(roomWPerc, roomHPerc);
+        p5Instance.background(255);
+        // drawCentralRoom(roomWPerc, roomHPerc);
         // p5Instance.drawSprite(lightSwitch);
         p5Instance.drawSprite(drop);
         // p5Instance.tint(255, 120);
         // p5Instance.drawSprite(drop2);
         levelManager.draw();
-        // p5Instance.drawSprite(river);
-        // patches.forEach(p => {
-        //     p.draw();
-        //     uts.drawRec(
-        //         p5Instance,
-        //         p.contextPos,
-        //         p5Instance.createVector(p.contextPos.x + SCREEN_WIDTH, p.contextPos.y + SCREEN_HEIGHT)
-        //     )
-        // });
 
-        // if (p5Instance.mouseX > 500) {
-        //     p5Instance.cursor('grab');
-        // } else {
-        //     p5Instance.cursor('cell');
-        // }
 
         // p5Instance.push();
         // p5Instance.translate(400, 500);
