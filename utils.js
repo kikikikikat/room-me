@@ -136,17 +136,19 @@ export default (p5Instance) => {
         handDraw(context, screenRightBottom, rightBottom);
     }
 
-    const drawRadiantLines = (context, numOfLines, radius, lineLength, radians) => {
+    const drawRadiantLines = (context, x, y, numOfLines, radius, lineLength, opts, radians) => {
         //draw a line perpendicular to a circle that has the length of the steps done each day.
         for (let i = 0; i < numOfLines; i++) {
             let angle = p5Instance.map(i,0,numOfLines,0, radians || p5Instance.TWO_PI);//equally spacing lines along the circle.
              //radius = the internal cycle.
-            let x1 = radius * p5Instance.cos(angle);
-            let y1 = radius * p5Instance.sin(angle);
-            let x2 = (radius + lineLength) * p5Instance.cos(angle);
-            let y2 = (radius+lineLength) * p5Instance.sin(angle);
+            let distortion = opts.distortion || 0;
+            let start = opts.start || 0;
+            let x1 = (x || 0) + radius * p5Instance.cos(angle + start);
+            let y1 = (y || 0) + radius * p5Instance.sin(angle + start);
+            let x2 = (x || 0) + (radius + lineLength) * p5Instance.cos(angle + distortion + start);
+            let y2 = (y || 0) + (radius+lineLength) * p5Instance.sin(angle + distortion + start);
             //context.line(x1,y1,x2,y2);
-            handDraw(context, p5Instance.createVector(x1, y1), p5Instance.createVector(x2, y2));
+            handDraw(context, p5Instance.createVector(x1, y1), p5Instance.createVector(x2, y2), opts);
         }
 
     }

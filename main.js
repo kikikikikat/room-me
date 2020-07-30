@@ -28,9 +28,11 @@ import levelBiosphere from './level-biosphere.js';
 import level_1 from './level-1-opening-room.js';
 import level_2 from './level-2-text.js';
 import level_3 from './level-3-swim.js';
+import level_4 from './level-4-text.js';
+import level_eye from './level-0-eye.js';
 
 
-var levelData = [  level_3 ];
+var levelData = [  level_eye, level_4 ];
   
 
 new p5(p5Instance => {
