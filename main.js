@@ -21,18 +21,32 @@ import vants from './vants.js';
 import DLAParticles from './DLAParticles.js';
 import persons from './persons.js';
 
-import levelWindows from './level-windows.js';
-import levelStairs from './level-stairs.js';
+import levelWindows from './level-0-windows.js';
+import levelStairs from './level-0-stairs.js';
 import levelBiosphere from './level-biosphere.js';
 
 import level_1 from './level-1-opening-room.js';
 import level_2 from './level-2-text.js';
 import level_3 from './level-3-swim.js';
-import level_4 from './level-4-text.js';
 import level_eye from './level-0-eye.js';
+import level_trapped from './level-0-trapped.js';
+import level_text_live_close from './level-0-text-live-close.js';
+import level_text_watch from './level-0-text-watch.js';
+import level_text_explore from './level-0-text-explore.js';
+import level_text_over from './level-0-text-over-over.js';
 
-
-var levelData = [  level_eye, level_4 ];
+var levelData = [  
+    level_1,
+    level_2,
+    level_text_live_close,
+    level_trapped,
+    level_text_watch,
+    level_eye,
+    level_text_explore,
+    levelStairs,
+    level_text_over,
+    level_3
+];
   
 
 new p5(p5Instance => {
