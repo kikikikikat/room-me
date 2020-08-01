@@ -39,17 +39,17 @@ import level_text_others from './level-0-text-others.js';
 import level_text_ending from './level-0-text-ending.js';
 
 var levelData = [  
-    level_1,
-    level_2,
-    level_text_live_close,
-    level_trapped,
-    level_text_watch,
-    level_eye,
-    level_text_explore,
-    levelStairs,
-    level_text_over,
-    level_3,
-    level_text_others,
+    // level_1,
+    // level_2,
+    // level_text_live_close,
+    // level_trapped,
+    // level_text_watch,
+    // level_eye,
+    // level_text_explore,
+    // levelStairs,
+    // level_text_over,
+    // level_3,
+    // level_text_others,
     levelWindows,
     level_text_ending
 ];
@@ -131,6 +131,11 @@ new p5(p5Instance => {
 
     p5Instance.mouseMoved = () => {
         levelManager.mouseMoved();
+    }
+
+    p5Instance.mouseClicked = () => {
+        console.log('main click');
+        levelManager.mouseClicked();
     }
 
     p5Instance.windowResized = () => {

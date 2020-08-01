@@ -49,6 +49,16 @@ export default class LevelManager {
         }
     }
 
+    mouseClicked() {
+        if (this.currentLevel) {
+            if (this.currentLevel.isDestroyed()) {
+                this.next();
+            } else {
+                this.currentLevel.mouseClicked();
+            }
+        }
+    }
+
     getCurrentLevel() {
         return this.currentLevel;
     }
