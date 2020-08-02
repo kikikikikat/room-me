@@ -72,8 +72,9 @@ new p5(p5Instance => {
         levelManager.start();
         window.levelManager = levelManager;
 
-        button = p5Instance.createButton('next level');
-        button.position(p5Instance.width / 2 - 20, p5Instance.height * .8);
+        button = p5Instance.createButton('-> next');
+        button.addClass('nextButton');
+        button.position(p5Instance.width / 2 - 40, p5Instance.height * .86);
         button.mousePressed(()=> {
             levelManager.next();
         });
