@@ -37,10 +37,13 @@ import level_text_over from './level-0-text-over-over.js';
 
 import level_text_others from './level-0-text-others.js';
 import level_text_ending from './level-0-text-ending.js';
+import level_friend from './level-0-friend.js';
+import level_unimaginable from './level-0-unimaginable.js';
 
 var levelData = [  
     // level_1,
     // level_2,
+    // level_friend,
     // level_text_live_close,
     // level_trapped,
     // level_text_watch,
@@ -49,6 +52,7 @@ var levelData = [
     // levelStairs,
     // level_text_over,
     // level_3,
+    level_unimaginable,
     // level_text_others,
     levelWindows,
     level_text_ending
