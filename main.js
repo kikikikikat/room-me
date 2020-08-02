@@ -2,28 +2,9 @@ import Level from './Level.js';
 import LevelManager from './LevelManager.js';
 import utils from './utils.js';
 
-// import level0 from './level-0.js';
-// import level1 from './level-1.js';
-// import level2 from './level-2.js';
-
-
-// import levelRiver from './level-river.js';
-// import levelFurniture from './level-furniture.js';
-// import levelFlowers from './level-flowers.js';
-// import levelMountains from './level-mountains.js';
-// import levelQuads from './level-quads.js';
-// import levelEmpty from './level-empty.js';
-// import levelTest from './level-test.js';
-// import levelRoom from './level-room.js';
-
-// import vants from './vants.js';
-
-// import DLAParticles from './DLAParticles.js';
-// import persons from './persons.js';
 
 import levelWindows from './level-0-windows.js';
 import levelStairs from './level-0-stairs.js';
-// import levelBiosphere from './level-biosphere.js';
 
 import level_1 from './level-1-opening-room.js';
 import level_2 from './level-2-text.js';
@@ -74,36 +55,18 @@ new p5(p5Instance => {
     const levelManager = new LevelManager(levels);
 
 
-    let room, lightSwitch, drop, drop2, river;
-    let isDarkMode = false;
-
-    let SCREEN_WIDTH = 200;
-    let SCREEN_HEIGHT = 150;
-
     let fontRegular, fontBold;
 
     let button;
     p5Instance.preload = () => {
-        // lightSwitch = p5Instance.createSprite(170, 320);
-        // lightSwitch.scale = .4;
-        // lightSwitch.addAnimation('day', 'assets/switch/frame_1.png', 'assets/switch/frame_4.png');
-        // lightSwitch.addAnimation('dark', 'assets/switch-pressed/frame_1.png', 'assets/switch-pressed/frame_2.png');
 
         fontRegular = p5Instance.loadFont('assets/fonts/AmaticSC-Regular.ttf');
         fontBold = p5Instance.loadFont('assets/fonts/AmaticSC-Bold.ttf');
     }
 
-    const toggleSwitch = () => {
-        isDarkMode = !isDarkMode;
-        isDarkMode ? room.changeAnimation('dark') : room.changeAnimation('day');
-        isDarkMode ? lightSwitch.changeAnimation('dark') : lightSwitch.changeAnimation('day');
-    }
-
-
 
     p5Instance.setup = () => {
         p5Instance.rectMode(p5Instance.CENTER);
-        //p5Instance.createCanvas(p5Instance.windowWidth, p5Instance.windowHeight);
         p5Instance.createCanvas(p5Instance.windowWidth, p5Instance.windowHeight);
 
         levelManager.start();
@@ -112,28 +75,11 @@ new p5(p5Instance => {
         button = p5Instance.createButton('next level');
         button.position(p5Instance.width / 2 - 20, p5Instance.height * .8);
         button.mousePressed(()=> {
-            console.log('clciked button!');
             levelManager.next();
         });
 
         p5Instance.textFont(fontRegular);
-
-        // lightSwitch.setCollider('circle', 0, 0, 64);
-        // lightSwitch.onMousePressed = () => {
-        //     console.log('pressed switch');
-        //     levelManager.next();
-        //     isDarkMode = !isDarkMode;
-        //     isDarkMode ? room.changeAnimation('dark') : room.changeAnimation('day');
-        //     isDarkMode ? lightSwitch.changeAnimation('dark') : lightSwitch.changeAnimation('day');
-        // };
-        // lightSwitch.onMouseOver = () => {
-        //     console.log('mouseover switch');
-        //     toggleSwitch();
-        // }
-        // lightSwitch.onMouseOut = () => {
-        //     console.log('mouse out');
-        //     toggleSwitch();
-        // }
+        p5Instance.textSize(34);
     };
 
     p5Instance.mouseMoved = () => {
@@ -141,7 +87,6 @@ new p5(p5Instance => {
     }
 
     p5Instance.mouseClicked = () => {
-        console.log('main click');
         levelManager.mouseClicked();
     }
 
@@ -151,33 +96,12 @@ new p5(p5Instance => {
 
 
     p5Instance.draw = () => {
-        //p5Instance.background(isDarkMode ? p5Instance.color(0, 0, 0) : p5Instance.color(255));
         p5Instance.background(255);
-        // drawCentralRoom(roomWPerc, roomHPerc);
-        // p5Instance.drawSprite(lightSwitch);
-        p5Instance.drawSprite(drop);
-        // p5Instance.tint(255, 120);
-        // p5Instance.drawSprite(drop2);
         levelManager.draw();
+        if (levelManager.getCurrentLevel().index === levelData.length - 1) {
+            button.addClass('hide');
+        }
 
-
-        // p5Instance.push();
-        // p5Instance.translate(400, 500);
-        // p5Instance.rotate(p5Instance.frameCount * .1);
-        // uts.drawRadiantLines(p5Instance, 5, 10, 50, p5Instance.TWO_PI * .3);
-        // p5Instance.pop();
-
-
-
-
-        //roomWPerc = p5Instance.noise(p5Instance.frameCount * .01);
-
-
-        // if (p5Instance.frameCount > 30) {
-        //     p5Instance.noLoop();
-        // }
-        p5Instance.text("X: "+ p5Instance.mouseX, 0, p5Instance.height/4);
-        p5Instance.text("Y: "+ p5Instance.mouseY, 0, p5Instance.height/2);
     }
 
 });

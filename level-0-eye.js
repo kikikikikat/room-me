@@ -94,7 +94,7 @@ export default p5Instance => {
 
         p5Instance.imageMode(p5Instance.CENTER);
         p5Instance.image(pg3D, p5Instance.width / 2, p5Instance.height / 2);
-        pg3D.background(255, 30, 30, 30);
+        //pg3D.background(255, 30, 30, 30);
         pg3D.noFill();
         // pg3D.perspective(.8);
         // pg3D.rotateX(p5Instance.frameCount * 0.001);

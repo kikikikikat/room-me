@@ -19,26 +19,26 @@ export default p5Instance => {
 
         pg3D = p5Instance.createGraphics(252, 122, p5Instance.WEBGL);
 
-        desk = p5Instance.createSprite(650, 360);
-        desk.scale = .2;
+        desk = p5Instance.createSprite(450, 360);
+        desk.scale = .5;
         desk.addAnimation('default', 'assets/desk/frame_00001.png', 'assets/desk/frame_00002.png');
 
         chair = p5Instance.createSprite(650, 370);
-        chair.scale = .2;
+        chair.scale = .5;
         chair.addAnimation('default', 'assets/chair/frame_00001.png', 'assets/chair/frame_00002.png');
 
-        chair = p5Instance.createSprite(650, 370);
-        chair.scale = .2;
+        chair = p5Instance.createSprite(550, 370);
+        chair.scale = .5;
         chair.addAnimation('default', 'assets/chair/frame_00001.png', 'assets/chair/frame_00002.png');
 
-        windows = p5Instance.createSprite(650, 370);
-        windows.scale = .2;
+        windows = p5Instance.createSprite(650, 280);
+        windows.scale = .6;
         windows.addAnimation('default', 'assets/windows/frame_00001.png', 'assets/windows/frame_00002.png');
     }
 
     const drawNoisy = (context) => {
-        let size = 20;
-        p5Instance.noFill();
+        let size = 40;
+        context.fill(0);
         for (let i = 0; i < 1000; i++) {
             let firstPoint = [
                 p5Instance.random(0, context.width),
@@ -77,7 +77,7 @@ export default p5Instance => {
 
         p5Instance.imageMode(p5Instance.CENTER);
         p5Instance.image(pg3D, p5Instance.width / 2, p5Instance.height / 2 + 40);
-        pg3D.background(255, 255, 255, 180);
+        pg3D.background(255, 255, 255, 0);
         pg3D.noFill();
         // pg3D.perspective(.8);
         // pg3D.rotateX(p5Instance.frameCount * 0.001);

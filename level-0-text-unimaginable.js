@@ -3,7 +3,7 @@ export default p5Instance => {
 
     let isDarkMode = true;
 
-    const text = 'in ways previously unimaginable';
+    const text = 'and we grow.';
 
 
 
@@ -22,7 +22,6 @@ export default p5Instance => {
  
         p5Instance.textAlign(p5Instance.CENTER);
         p5Instance.fill(250);
-        p5Instance.textSize(16);
         p5Instance.text(text, p5Instance.width / 2, p5Instance.height / 2);
         
     }

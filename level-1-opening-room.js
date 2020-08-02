@@ -10,9 +10,9 @@ export default p5Instance => {
     const roomWPerc = 0.35;
     const roomHPerc = 0.4;
 
-    let showText = false;
+    let showText = true;
 
-    const text = 'The Room'
+    const text = 'Room/me'
 
 
     const drawCentralRoom = (wPerc, hPerc) => {
@@ -26,10 +26,6 @@ export default p5Instance => {
     const toggleSwitch = () => {
         isDarkMode = !isDarkMode;
         isDarkMode ? lightSwitch.changeAnimation('dark') : lightSwitch.changeAnimation('light');
-
-        setTimeout(() => {
-            showText = true;
-        }, 1000);
     }
 
     const start = () => {
@@ -65,7 +61,7 @@ export default p5Instance => {
         if (showText) {
             p5Instance.textAlign(p5Instance.CENTER);
             p5Instance.fill(128 + p5Instance.sin(p5Instance.frameCount*0.01) * 128);
-            p5Instance.textSize(16);
+            p5Instance.textSize(50);
             p5Instance.text(text, p5Instance.width / 2, p5Instance.height / 2);
         }
     }

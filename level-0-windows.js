@@ -31,9 +31,6 @@ export default p5Instance => {
         offsetY = 90;
     }
 
-    p5Instance.mousePressed = () => {
-        // drawFlowers();
-    }
 
     const drawSmoke = (x, y) => {
         smoke = p5Instance.createSprite(x, y);
@@ -53,9 +50,17 @@ export default p5Instance => {
         hand.scale = 0.4;
     }
 
+    const mouseMoved = () => {
+        let color = uts.getColor(area, p5Instance.mouseX - offsetX, p5Instance.mouseY - offsetY);
+        if (color == 'red') {
+            p5Instance.cursor(p5Instance.HAND);
+        } else {
+            p5Instance.cursor(p5Instance.DEFAULT);
+        }
+    }
+
     const mouseClicked = () => {
         let color = uts.getColor(area, p5Instance.mouseX - offsetX, p5Instance.mouseY - offsetY);
-        console.log(color);
         //if (!color) return;
         // then clicking on the window
         if (color == 'red') {
@@ -97,6 +102,7 @@ export default p5Instance => {
     return {
         start,
         draw,
+        mouseMoved,
         mouseClicked,
         cleanup
     }
