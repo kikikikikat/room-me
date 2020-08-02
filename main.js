@@ -78,6 +78,8 @@ new p5(p5Instance => {
     let SCREEN_WIDTH = 200;
     let SCREEN_HEIGHT = 150;
 
+    let fontRegular, fontBold;
+
     let button;
     p5Instance.preload = () => {
         // lightSwitch = p5Instance.createSprite(170, 320);
@@ -90,6 +92,9 @@ new p5(p5Instance => {
         drop.addAnimation('normal', 'assets/water-drop/frame_00001.png', 'assets/water-drop/frame_00017.png');
         // drop2 = p5Instance.createSprite(410, 300);
         // drop2.addAnimation('normal', 'assets/water-drop/frame_00001.png', 'assets/water-drop/frame_00017.png');
+
+        fontRegular = p5Instance.loadFont('assets/fonts/AmaticSC-Regular.ttf');
+        fontBold = p5Instance.loadFont('assets/fonts/AmaticSC-Bold.ttf');
     }
 
     const toggleSwitch = () => {
@@ -114,6 +119,8 @@ new p5(p5Instance => {
             console.log('clciked button!');
             levelManager.next();
         });
+
+        p5Instance.textFont(fontRegular);
 
         // lightSwitch.setCollider('circle', 0, 0, 64);
         // lightSwitch.onMousePressed = () => {
