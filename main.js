@@ -2,28 +2,28 @@ import Level from './Level.js';
 import LevelManager from './LevelManager.js';
 import utils from './utils.js';
 
-import level0 from './level-0.js';
-import level1 from './level-1.js';
-import level2 from './level-2.js';
+// import level0 from './level-0.js';
+// import level1 from './level-1.js';
+// import level2 from './level-2.js';
 
 
-import levelRiver from './level-river.js';
-import levelFurniture from './level-furniture.js';
-import levelFlowers from './level-flowers.js';
-import levelMountains from './level-mountains.js';
-import levelQuads from './level-quads.js';
-import levelEmpty from './level-empty.js';
-import levelTest from './level-test.js';
-import levelRoom from './level-room.js';
+// import levelRiver from './level-river.js';
+// import levelFurniture from './level-furniture.js';
+// import levelFlowers from './level-flowers.js';
+// import levelMountains from './level-mountains.js';
+// import levelQuads from './level-quads.js';
+// import levelEmpty from './level-empty.js';
+// import levelTest from './level-test.js';
+// import levelRoom from './level-room.js';
 
-import vants from './vants.js';
+// import vants from './vants.js';
 
-import DLAParticles from './DLAParticles.js';
-import persons from './persons.js';
+// import DLAParticles from './DLAParticles.js';
+// import persons from './persons.js';
 
 import levelWindows from './level-0-windows.js';
 import levelStairs from './level-0-stairs.js';
-import levelBiosphere from './level-biosphere.js';
+// import levelBiosphere from './level-biosphere.js';
 
 import level_1 from './level-1-opening-room.js';
 import level_2 from './level-2-text.js';
@@ -39,21 +39,23 @@ import level_text_others from './level-0-text-others.js';
 import level_text_ending from './level-0-text-ending.js';
 import level_friend from './level-0-friend.js';
 import level_unimaginable from './level-0-unimaginable.js';
+import level_text_unimaginable from './level-0-text-unimaginable.js';
 
 var levelData = [  
-    // level_1,
-    // level_2,
-    // level_friend,
-    // level_text_live_close,
-    // level_trapped,
-    // level_text_watch,
-    // level_eye,
-    // level_text_explore,
-    // levelStairs,
-    // level_text_over,
-    // level_3,
+    level_1,
+    level_2,
+    level_friend,
+    level_text_live_close,
+    level_trapped,
+    level_text_watch,
+    level_eye,
+    level_text_explore,
+    levelStairs,
+    level_text_over,
+    level_3,
+    level_text_unimaginable,
     level_unimaginable,
-    // level_text_others,
+    level_text_others,
     levelWindows,
     level_text_ending
 ];
@@ -86,12 +88,6 @@ new p5(p5Instance => {
         // lightSwitch.scale = .4;
         // lightSwitch.addAnimation('day', 'assets/switch/frame_1.png', 'assets/switch/frame_4.png');
         // lightSwitch.addAnimation('dark', 'assets/switch-pressed/frame_1.png', 'assets/switch-pressed/frame_2.png');
-
-
-        drop = p5Instance.createSprite(400, 300);
-        drop.addAnimation('normal', 'assets/water-drop/frame_00001.png', 'assets/water-drop/frame_00017.png');
-        // drop2 = p5Instance.createSprite(410, 300);
-        // drop2.addAnimation('normal', 'assets/water-drop/frame_00001.png', 'assets/water-drop/frame_00017.png');
 
         fontRegular = p5Instance.loadFont('assets/fonts/AmaticSC-Regular.ttf');
         fontBold = p5Instance.loadFont('assets/fonts/AmaticSC-Bold.ttf');

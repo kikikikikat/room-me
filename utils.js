@@ -89,11 +89,6 @@ export default (p5Instance) => {
         let xStart = opts.xStart || 0;
         for (let x = xStart; x < w; x += sep) {
             let topP = intersect_point([leftTop.x + x, 0], [leftTop.x + x, context.height], [leftTop.x, leftTop.y], [rightTop.x, rightTop.y]);
-
-            if (opts.wavy) {
-                leftBottom.y += context.sin(context.frameCount * 0.1) * 3;
-                rightBottom.y += context.sin(context.frameCount * 0.1) * 3;
-            }
             let bottomP = intersect_point([leftBottom.x + x, 0], [leftBottom.x + x, context.height], [leftBottom.x, leftBottom.y], [rightBottom.x, rightBottom.y]);
             handDraw(context, p5Instance.createVector(topP[0], topP[1]), p5Instance.createVector(bottomP[0], bottomP[1]), opts);
         }
