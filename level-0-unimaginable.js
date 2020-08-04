@@ -14,7 +14,7 @@ export default p5Instance => {
 
 
     const start = () => {
-        plantAnimation = p5Instance.loadAnimation('assets/level-unimaginable/plant/frame_00001.png', 'assets/level-unimaginable/plant/frame_00020.png');
+        plantAnimation = p5Instance.loadAnimation('assets/level-unimaginable/plant/frame_00001.png', 'assets/level-unimaginable/plant/frame_00015.png');
         plantAnimation.looping = false;
 
         dropAnimation = p5Instance.loadAnimation('assets/water-drop/frame_00001.png', 'assets/water-drop/frame_00017.png');

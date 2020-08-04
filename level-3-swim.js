@@ -5,6 +5,7 @@ export default p5Instance => {
 
     let isDarkMode = false;
     let uts = utils(p5Instance);
+    let swimAnimation;
 
     let swimmers = [];
 
@@ -12,6 +13,7 @@ export default p5Instance => {
 
 
     const start = () => {
+        swimAnimation = p5Instance.loadAnimation('assets/level-swim/swimmer/frame_00001.png', 'assets/level-swim/swimmer/frame_00012.png');
 
         for (let i = 0; i < 10; i++) {
             let x = p5Instance.random(100, p5Instance.width - 100);
@@ -25,12 +27,9 @@ export default p5Instance => {
 
     const createSwimmer = (x, y) => {
         let sprite = p5Instance.createSprite(x || p5Instance.width / 2, y || p5Instance.height / 2);
-        sprite.addAnimation('swimming', 'assets/level-swim/swimmer/frame_00001.png', 'assets/level-swim/swimmer/frame_00012.png');
+        sprite.addAnimation('swimming', swimAnimation);
         sprite.velocity.y = p5Instance.random(-1, -0.1);
         sprite.scale = p5Instance.random(0.05, .8);
-        sprite.onMouseOver = () => {
-            console.log('swimming!');
-        }
         return sprite;
     }
 

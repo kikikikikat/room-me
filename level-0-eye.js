@@ -6,7 +6,7 @@ export default p5Instance => {
     let isDarkMode = false;
     let uts = utils(p5Instance);
 
-    let eyes = [];
+    let eyes = [], eyeImage;
 
     let pg3D;
 
@@ -22,6 +22,7 @@ export default p5Instance => {
                 )           
             }
         }
+        eyeImage = p5Instance.loadImage('assets/level-eye/eye-socket.png');
         for (let i = 0; i < 9; i++) {
             eyes.push(createEye(eyePositions[i].x, eyePositions[i].y));
         }
@@ -30,7 +31,7 @@ export default p5Instance => {
 
     const createEye = (x, y) => {
         let sprite = p5Instance.createSprite(x || p5Instance.width / 2, y || p5Instance.height / 2);
-        sprite.addImage(p5Instance.loadImage('assets/level-eye/eye-socket.png'));
+        sprite.addImage(eyeImage);
         sprite.scale = .2;
         return sprite;
     }
